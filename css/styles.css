@@ -1,627 +1,541 @@
-/* --- ĐỊNH NGHĨA CÁC BỘ MÀU (THEMES) --- */
-/* :root tương đương với [data-theme="blue"] */
-:root {
-  --bg-dark: #1a1a2e; /* Nền tối */
-  --text-light: #e0e0e0;
+/* ================================================= */
+/* === CHỦ ĐỀ CÔNG NGHỆ (SÁNG) - PHIÊN BẢN 2.2 === */
+/* ================================================= */
 
-  --neon-primary: #0ff; /* Xanh neon (Màu chính) */
-  --neon-secondary: #f0f; /* Tím neon (Màu phụ) */
-  --border-color: #3e2060; /* Màu viền */
-  --shadow-primary-soft: rgba(0, 255, 255, 0.2); /* Đổ bóng nhẹ chính */
-  --shadow-secondary-soft: rgba(255, 0, 255, 0.2); /* Đổ bóng nhẹ phụ */
+/* --- 1. ĐỊNH NGHĨA CÁC BỘ MÀU (SÁNG) --- */
+:root {
+  --bg-color: #ffffff;
+  --card-bg-color: #fcfcfc; /* Hơi xám một chút */
+  --text-color: #222222;
+  --text-light: #555555;
+  --primary-color: #007bff;
+  --secondary-color: #0056b3;
+  --border-color: #e0e0e0;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* Màu nền Gradient (rất nhẹ) */
+  --grad-start: #ffffff;
+  --grad-end: #f0f7ff; /* 10% của --primary-color */
 }
 
 body[data-theme="orange"] {
-  --neon-primary: #ff9900; /* Cam Neon */
-  --neon-secondary: #00ff99; /* Xanh lá mạ */
-  --border-color: #604a20;
-  --shadow-primary-soft: rgba(255, 153, 0, 0.2);
-  --shadow-secondary-soft: rgba(0, 255, 153, 0.2);
+  --primary-color: #fd7e14;
+  --secondary-color: #c7640f;
+  --grad-end: #fff8f0;
 }
 
 body[data-theme="purple"] {
-  --neon-primary: #f0f; /* Tím Neon (Đảo ngược) */
-  --neon-secondary: #0ff; /* Xanh Neon */
-  --border-color: #3e2060;
-  --shadow-primary-soft: rgba(255, 0, 255, 0.2);
-  --shadow-secondary-soft: rgba(0, 255, 255, 0.2);
+  --primary-color: #6f42c1;
+  --secondary-color: #56329a;
+  --grad-end: #f8f0ff;
 }
 
 body[data-theme="green"] {
-  --neon-primary: #00ff00; /* Xanh lá Neon */
-  --neon-secondary: #ff00ff; /* Hồng Neon */
-  --border-color: #206020;
-  --shadow-primary-soft: rgba(0, 255, 0, 0.2);
-  --shadow-secondary-soft: rgba(255, 0, 255, 0.2);
+  --primary-color: #28a745;
+  --secondary-color: #1e7e34;
+  --grad-end: #f0fff3;
 }
 /* --- HẾT PHẦN ĐỊNH NGHĨA THEME --- */
 
-/* --- CSS CƠ BẢN (Đã cập nhật để dùng biến) --- */
+/* --- 2. CSS CƠ BẢN VÀ NỀN GRADIENT --- */
 body {
-  font-family: "Rajdhani", sans-serif;
-  background-color: var(--bg-dark);
-  color: var(--text-light);
+  font-family: "Dosis", sans-serif;
+  /* NỀN GRADIENT MỚI */
+  background: linear-gradient(
+    135deg,
+    var(--grad-start) 0%,
+    var(--grad-end) 100%
+  );
+  background-attachment: fixed; /* Giữ gradient cố định khi cuộn */
+  color: var(--text-color);
   margin: 0;
   padding: 20px;
   line-height: 1.6;
   overflow-x: hidden;
-  background-image: radial-gradient(
-      circle at top left,
-      var(--shadow-primary-soft) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      var(--shadow-secondary-soft) 0%,
-      transparent 50%
-    );
-  background-size: 800px 800px;
-  background-repeat: no-repeat;
-  background-position: top left, bottom right;
-  transition: background-color 0.5s ease; /* Thêm transition cho mượt */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
   max-width: 900px;
+  /* ===== THAY ĐỔI: Đã xóa margin-left: 120px và dùng auto để căn giữa ===== */
   margin: 40px auto;
-  background-color: rgba(10, 10, 20, 0.8);
+  background-color: var(--card-bg-color);
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 0 20px var(--shadow-primary-soft),
-    0 0 30px var(--shadow-secondary-soft);
   border: 1px solid var(--border-color);
-  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
 }
 
-h1,
-h2 {
-  font-family: "Orbitron", sans-serif;
-  color: var(--neon-primary); /* Dùng biến */
-  text-shadow: 0 0 8px var(--neon-primary); /* Dùng biến */
-  margin-bottom: 20px;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-}
-
+/* --- 3. CSS CHO FONT VÀ TIÊU ĐỀ --- */
 h1 {
-  font-size: 3em;
-  text-align: center;
+  font-family: "Orbitron", sans-serif;
+  font-size: 2.8em; /* Giảm 1 chút */
   text-transform: uppercase;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
 h2 {
-  font-size: 2em;
-  border-bottom: 2px solid var(--neon-secondary); /* Dùng biến */
-  padding-bottom: 5px;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2.2em;
+  color: var(--primary-color);
   margin-top: 40px;
-  transition: border-color 0.5s ease;
+  margin-bottom: 0; /* Xóa margin-bottom */
+  padding-bottom: 5px;
+  /* Xóa border-bottom, sẽ dùng trong .section-header */
+  border-bottom: none;
+  transition: color 0.3s ease;
 }
 
+h3 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.5em;
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+h4 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.3em;
+  color: var(--secondary-color);
+  margin-top: 0;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+p {
+  color: var(--text-light);
+  font-size: 1.1em;
+}
+
+/* --- 4. CSS HEADER ĐÃ THIẾT KẾ LẠI --- */
 .hero {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+/* Layout Flex cho Avatar + Intro */
+.hero-main {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Khoảng cách giữa avatar và intro */
+  margin-bottom: 30px;
+}
+
+.avatar-container {
+  flex-shrink: 0; /* Không co lại */
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
-  background-color: #333; /* Placeholder */
+  width: 150px; /* Kích thước mới */
+  height: 150px;
+  object-fit: cover;
   border-radius: 50%;
-  margin: 0 auto 20px;
-  border: 3px solid var(--neon-primary); /* Dùng biến */
-  box-shadow: 0 0 15px var(--neon-primary); /* Dùng biến */
-  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  border: 4px solid var(--primary-color);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.intro-container {
+  text-align: left; /* Căn lề trái */
+  flex-grow: 1; /* Lấp đầy không gian */
+}
+
+/* Căn lề trái cho các mục trong intro */
+.intro-container h1,
+.intro-container .role,
+.intro-container .prompt {
+  text-align: left;
+}
+.intro-container h1 {
+  margin-bottom: 5px;
+}
+.intro-container .role {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.intro-container .prompt {
+  margin-left: 0;
 }
 
 .role {
-  color: var(--neon-secondary); /* Dùng biến */
-  font-size: 1.2em;
-  margin-top: -10px;
-  text-shadow: 0 0 5px var(--neon-secondary); /* Dùng biến */
-  transition: color 0.5s ease, text-shadow 0.5s ease;
+  font-family: "Rajdhani", sans-serif;
+  color: var(--secondary-color);
+  font-size: 1.3em;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .prompt {
   font-family: "Dosis", sans-serif;
   font-size: 1.1em;
-  margin: 20px auto;
   max-width: 700px;
   color: var(--text-light);
 }
 
-/*  */
+/* --- 5. THẺ THÔNG TIN (INFO CARD) --- */
+.info-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  background: var(--bg-color);
+  padding: 25px;
+  border-radius: 8px;
+  margin: 30px 0;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
 
-/* --- CSS CHO CÁC NÚT ĐỔI MÀU (THÊM MỚI) --- */
-.theme-switcher {
-  text-align: center;
-  margin-top: 30px;
+.info-section p {
+  margin: 8px 0;
 }
-.theme-switcher span {
-  margin-right: 10px;
-  vertical-align: middle;
-  font-family: "Dosis", sans-serif;
+
+.info-section a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px dotted var(--primary-color);
+  transition: all 0.3s ease;
 }
-.theme-btn {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #fff;
+.info-section a:hover {
+  color: var(--secondary-color);
+  border-bottom-color: var(--secondary-color);
+}
+
+/* --- 6. CÁC MỤC THU/GỌN (COLLAPSIBLE) --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color); /* Di chuyển border từ H2 xuống đây */
+  margin-top: 40px;
   cursor: pointer;
-  margin: 0 5px;
-  vertical-align: middle;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.theme-btn:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 10px #fff;
+.section-header h2 {
+  margin-top: 0; /* Xóa margin-top của H2 */
 }
-.theme-btn.blue {
-  background-color: #0ff;
-}
-.theme-btn.purple {
-  background-color: #f0f;
-}
-.theme-btn.orange {
-  background-color: #ff9900;
-}
-.theme-btn.green {
-  background-color: #00ff00;
-}
-/* --- HẾT PHẦN THÊM MỚI --- */
 
-ul {
-  list-style: none;
+.toggle-btn {
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   padding: 0;
+  transition: all 0.3s ease;
+}
+.toggle-btn::before {
+  /* Tạo icon Chevron (>) */
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  transform: rotate(-45deg); /* Hướng xuống */
+  transition: all 0.3s ease;
 }
 
-ul li {
-  margin-bottom: 8px;
-  padding-left: 1.5em;
+.toggle-btn:hover {
+  background-color: var(--border-color);
+}
+
+/* Khi mở (mặc định), xoay icon */
+.toggle-btn[aria-expanded="true"]::before {
+  transform: rotate(135deg); /* Hướng lên */
+  margin-top: -4px; /* Căn giữa */
+}
+
+.section-content {
+  max-height: 4000px; /* Chiều cao đủ lớn */
+  overflow: hidden;
+  /* ===== THAY ĐỔI: Tăng thời gian (0.8s) và đổi ease-in-out ===== */
+  transition: max-height 0.8s ease-in-out, opacity 0.8s ease-in-out,
+    padding 0.8s ease-in-out;
+  padding-top: 25px; /* Thêm padding khi mở */
+  opacity: 1;
+}
+
+.section-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0; /* Xóa padding khi đóng */
+}
+
+/* --- 7. CÁC GRID (DỰ ÁN, KỸ NĂNG, CHỨNG CHỈ...) --- */
+.project-item,
+.skill-item,
+.experience-item,
+.cert-item,
+.interest-item {
+  background-color: var(--bg-color);
+  padding: 20px 25px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
   position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-ul li::before {
-  content: ">>"; /* Ký tự mang phong cách techy */
-  color: var(--neon-secondary); /* Dùng biến */
-  position: absolute;
-  left: 0;
-  transition: color 0.5s ease;
+.project-item:hover,
+.skill-item:hover,
+.experience-item:hover,
+.cert-item:hover,
+.interest-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.project-grid {
+.project-grid,
+.skill-grid,
+.certification-grid,
+.interests-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
 
-.project-item {
-  background-color: rgba(20, 20, 40, 0.7);
-  padding: 20px;
-  border-radius: 5px;
-  border: 1px solid var(--border-color); /* Dùng biến */
-  transition: transform 0.3s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+ul li {
+  font-family: "Dosis", sans-serif;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  padding-left: 1.5em;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 10px var(--shadow-primary-soft);
-  position: relative; /* Bắt buộc phải có để z-index hoạt động */
-  z-index: 1;
+  color: var(--text-light);
 }
 
-.project-item .cyber-link-wrapper {
-  position: relative; /* Giữ nguyên */
-  z-index: 2; /* Nâng các nút lên lớp 2, cao hơn lớp "phát sáng" */
-}
-
-.project-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px var(--neon-primary), 0 0 25px var(--neon-secondary); /* Dùng biến */
-}
-
-.project-item h3 {
-  color: var(--neon-primary); /* Dùng biến */
-  margin-top: 0;
-  font-size: 1.5em;
-  text-shadow: 0 0 5px var(--neon-primary); /* Dùng biến */
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-}
-
-.neon-button {
-  display: inline-block;
-  background-color: transparent;
-  border: 2px solid var(--neon-secondary); /* Dùng biến */
-  color: var(--neon-secondary); /* Dùng biến */
-  padding: 8px 15px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px var(--neon-secondary); /* Dùng biến */
-  text-transform: uppercase;
+ul li::before {
+  content: "✓";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.neon-button:hover {
-  background-color: var(--neon-secondary); /* Dùng biến */
-  color: var(--bg-dark);
-  box-shadow: 0 0 20px var(--neon-secondary), 0 0 30px var(--neon-primary); /* Dùng biến */
+/* --- 8. CSS NÚT BẤM (BUTTONS) - THIẾT KẾ LẠI --- */
+
+/* Nút cơ bản */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  height: 40px;
+  min-width: 90px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.btn:active {
+  transform: translateY(0);
 }
 
-/* Responsive */
+/* ===== THAY ĐỔI: NÚT ĐỔI MÀU (STICKY) ===== */
+.theme-switcher-container {
+  /* VỊ TRÍ MỚI (STICKY) */
+  position: fixed;
+  top: 40px;
+  left: 20px;
+  z-index: 1000;
+
+  /* Style cho container */
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: var(--shadow);
+
+  display: flex;
+  flex-direction: column; /* Xếp dọc */
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-switcher-container strong {
+  margin-right: 0; /* Xóa margin cũ */
+  margin-bottom: 5px; /* Thêm margin dưới */
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.1em;
+  color: var(--text-color);
+}
+
+.theme-buttons {
+  display: flex;
+  flex-direction: column; /* Xếp dọc */
+  gap: 10px;
+}
+
+/* Nút đổi màu */
+.theme-btn {
+  min-width: 40px; /* Làm nút vuông hơn */
+  padding: 0;
+  width: 40px;
+  font-size: 0; /* Ẩn text "Blue", "Purple" */
+}
+/* Màu sắc cho từng nút (dùng ::after để tạo chấm màu) */
+.theme-btn::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+.theme-btn[data-theme="blue"]::after {
+  background-color: #007bff;
+}
+.theme-btn[data-theme="purple"]::after {
+  background-color: #6f42c1;
+}
+.theme-btn[data-theme="orange"]::after {
+  background-color: #fd7e14;
+}
+.theme-btn[data-theme="green"]::after {
+  background-color: #28a745;
+}
+
+/* Hiệu ứng cho nút theme */
+.theme-btn:hover::after {
+  transform: scale(1.2);
+}
+/* Nút theme được chọn (active) */
+body[data-theme="blue"] .theme-btn[data-theme="blue"],
+body[data-theme="purple"] .theme-btn[data-theme="purple"],
+body[data-theme="orange"] .theme-btn[data-theme="orange"],
+body[data-theme="green"] .theme-btn[data-theme="green"] {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--grad-end);
+}
+
+/* ===== THAY ĐỔI: NÚT DỰ ÁN (HÌNH THOI) ===== */
+.project-links {
+  display: flex;
+  gap: 0; /* Xóa gap */
+  margin-top: 20px;
+}
+.btn-project {
+  /* Style nút hình thoi (parallelogram) */
+  min-width: 110px;
+  border: none;
+  border-radius: 4px; /* Giữ bo góc nhẹ */
+  background-color: var(--border-color); /* Nền xám nhạt */
+  color: var(--secondary-color);
+  transform: skewX(-20deg); /* Độ nghiêng */
+}
+.btn-project span {
+  /* "Un-skew" text bên trong */
+  display: inline-block;
+  transform: skewX(20deg);
+  transition: color 0.2s ease;
+}
+
+/* Kéo nút thứ 2 sát vào nút đầu */
+.btn-project:nth-child(2) {
+  margin-left: -10px; /* Điều chỉnh để 2 cạnh song song */
+}
+
+.btn-project:hover {
+  /* Khi hover, nút trở thành nút chính (nền) */
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+  transform: translateY(-2px) skewX(-20deg); /* Thêm hiệu ứng hover */
+}
+.btn-project:hover span {
+  color: #ffffff;
+}
+
+.btn-project:active {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(0) skewX(-20deg); /* Bỏ hiệu ứng hover khi nhấn */
+}
+.btn-project:active span {
+  color: #ffffff;
+}
+
+/* --- 9. RESPONSIVE --- */
 @media (max-width: 768px) {
   .container {
+    /* Trả lại margin cũ trên mobile */
     margin: 20px auto;
     padding: 20px;
   }
   h1 {
-    font-size: 2.5em;
+    font-size: 2.2em;
   }
   h2 {
     font-size: 1.8em;
   }
-  .project-grid {
-    grid-template-columns: 1fr;
+
+  /* Header trên di động: xếp chồng */
+  .hero-main {
+    flex-direction: column;
+    gap: 20px;
   }
-}
-
-/* Uiverse */
-/* ----- 1. CSS cho Bộ chọn màu (Theme Switcher) ----- */
-.theme-switcher-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; /* Xuống dòng trên di động */
-  justify-content: center; /* Căn giữa */
-  margin-top: 30px;
-}
-
-.radio-wrapper {
-  position: relative;
-  height: 38px;
-  width: 84px;
-  margin: 3px;
-}
-
-.radio-wrapper .input {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  cursor: pointer;
-  z-index: 10;
-  opacity: 0;
-}
-
-/* ----- 2. CSS CHUNG CHO NÚT "GLITCH" (TỪ UIVERSE) ----- */
-/* Đây là code gốc của bạn, đã được chỉnh sửa để dùng biến theme */
-.btn {
-  /* Mặc định, nút sẽ có màu PHỤ (secondary) */
-  --primary: var(--neon-secondary);
-  --shadow-primary: var(--neon-primary);
-
-  --color: var(--text-light); /* Dùng màu text của theme */
-  --font-size: 9px;
-  --shadow-primary-hue: 180;
-  --shadow-secondary-hue: 60;
-  --shadow-secondary: hsl(var(--shadow-secondary-hue), 90%, 60%);
-  --clip: polygon(
-    11% 0,
-    95% 0,
-    100% 25%,
-    90% 90%,
-    95% 90%,
-    85% 90%,
-    85% 100%,
-    7% 100%,
-    0 80%
-  );
-  --border: 5px;
-  --shimmy-distance: 5;
-  --clip-one: polygon(
-    0 2%,
-    100% 2%,
-    100% 95%,
-    95% 95%,
-    95% 90%,
-    85% 90%,
-    85% 95%,
-    8% 95%,
-    0 70%
-  );
-  --clip-two: polygon(
-    0 78%,
-    100% 78%,
-    100% 100%,
-    95% 100%,
-    95% 90%,
-    85% 90%,
-    85% 100%,
-    8% 100%,
-    0 78%
-  );
-  --clip-three: polygon(
-    0 44%,
-    100% 44%,
-    100% 54%,
-    95% 54%,
-    95% 54%,
-    85% 54%,
-    85% 54%,
-    8% 54%,
-    0 54%
-  );
-  --clip-four: polygon(
-    0 0,
-    100% 0,
-    100% 0,
-    95% 0,
-    95% 0,
-    85% 0,
-    85% 0,
-    8% 0,
-    0 0
-  );
-  --clip-five: polygon(
-    0 0,
-    100% 0,
-    100% 0,
-    95% 0,
-    95% 0,
-    85% 0,
-    85% 0,
-    8% 0,
-    0 0
-  );
-  --clip-six: polygon(
-    0 40%,
-    100% 40%,
-    100% 85%,
-    95% 85%,
-    95% 85%,
-    85% 85%,
-    85% 85%,
-    8% 85%,
-    0 70%
-  );
-  --clip-seven: polygon(
-    0 63%,
-    100% 63%,
-    100% 80%,
-    95% 80%,
-    95% 80%,
-    85% 80%,
-    85% 80%,
-    8% 80%,
-    0 70%
-  );
-  color: var(--color);
-  text-transform: uppercase;
-  font-size: var(--font-size);
-  letter-spacing: 3px;
-  position: relative;
-  font-weight: 900;
-  width: 100%;
-  height: 100%;
-  line-height: 38px;
-  text-align: center;
-  transition: background 0.2s, 0.3s;
-}
-
-/* Nút radio KHI ĐƯỢC CHỌN (checked) sẽ có màu CHÍNH */
-.input:checked + .btn {
-  --primary: var(--neon-primary);
-  --shadow-primary: var(--neon-secondary);
-}
-
-.input:hover + .btn {
-  --font-size: 11px;
-}
-
-/* (Các phần :after, :before, ... giữ nguyên) */
-.btn:after,
-.btn:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  clip-path: var(--clip);
-  z-index: -1;
-}
-
-.btn:before {
-  background: var(--shadow-primary);
-  transform: translate(var(--border), 0);
-}
-
-.btn:after {
-  background: var(--primary);
-}
-
-.btn__glitch {
-  position: absolute;
-  top: calc(var(--border) * -1);
-  left: calc(var(--border) * -1);
-  right: calc(var(--border) * -1);
-  bottom: calc(var(--border) * -1);
-  background: var(--shadow-primary);
-  text-shadow: 2px 2px var(--shadow-primary), -2px -2px var(--shadow-secondary);
-  clip-path: var(--clip);
-  animation: glitch 2s infinite;
-  display: none;
-}
-
-.input:hover + .btn .btn__glitch {
-  display: block;
-}
-
-.input:checked + .btn .btn__glitch {
-  display: block;
-  animation: glitch 5s infinite;
-}
-
-.btn__glitch:before {
-  content: "";
-  position: absolute;
-  top: calc(var(--border) * 1);
-  right: calc(var(--border) * 1);
-  bottom: calc(var(--border) * 1);
-  left: calc(var(--border) * 1);
-  clip-path: var(--clip);
-  background: var(--primary);
-  z-index: -1;
-}
-
-.number {
-  background: var(--shadow-primary);
-  color: #323232;
-  font-size: 5.5px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  position: absolute;
-  width: 15px;
-  height: 6px;
-  top: 0;
-  left: 81%;
-  line-height: 6.2px;
-}
-@keyframes glitch {
-  0% {
-    clip-path: var(--clip-one);
+  .intro-container,
+  .intro-container h1,
+  .intro-container .role,
+  .intro-container .prompt {
+    text-align: center; /* Căn giữa lại trên di động */
   }
-  2%,
-  8% {
-    clip-path: var(--clip-two);
-    transform: translate(calc(var(--shimmy-distance) * -1%), 0);
-  }
-  6% {
-    clip-path: var(--clip-two);
-    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
-  }
-  9% {
-    clip-path: var(--clip-two);
-    transform: translate(0, 0);
-  }
-  10% {
-    clip-path: var(--clip-three);
-    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
-  }
-  13% {
-    clip-path: var(--clip-three);
-    transform: translate(0, 0);
-  }
-  14%,
-  21% {
-    clip-path: var(--clip-four);
-    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
-  }
-  25% {
-    clip-path: var(--clip-five);
-    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
-  }
-  30% {
-    clip-path: var(--clip-five);
-    transform: translate(calc(var(--shimmy-distance) * -1%), 0);
-  }
-  35%,
-  45% {
-    clip-path: var(--clip-six);
-    transform: translate(calc(var(--shimmy-distance) * -1%));
-  }
-  40% {
-    clip-path: var(--clip-six);
-    transform: translate(calc(var(--shimmy-distance) * 1%));
-  }
-  50% {
-    clip-path: var(--clip-six);
-    transform: translate(0, 0);
-  }
-  55% {
-    clip-path: var(--clip-seven);
-    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
-  }
-  60% {
-    clip-path: var(--clip-seven);
-    transform: translate(0, 0);
-  }
-  31%,
-  61%,
-  100% {
-    clip-path: var(--clip-four);
-  }
-}
 
-/* ----- 3. CSS ĐỂ ÁP DỤNG STYLE NÀY CHO LINK (<a>) ----- */
-/* Đây là phần thêm mới để bọc các link <a> */
-.cyber-link-wrapper {
-  display: inline-block;
-  text-decoration: none;
-  position: relative;
-  height: 38px;
-  width: 84px;
-  margin: 3px;
-  display: inline-flex;
-  align-items: stretch;
-  justify-content: stretch;
-}
+  .info-card {
+    grid-template-columns: 1fr; /* 1 cột trên di động */
+  }
+  .project-grid,
+  .skill-grid,
+  .certification-grid,
+  .interests-grid {
+    grid-template-columns: 1fr; /* 1 cột trên di động */
+  }
 
-/* Link sẽ có style nút mặc định (màu PHỤ) */
-.cyber-link-wrapper .btn {
-  --primary: var(--neon-secondary);
-  --shadow-primary: var(--neon-primary);
-  flex-grow: 1;
-}
-
-/* KHI HOVER VÀO LINK (<a>) */
-.cyber-link-wrapper:hover .btn {
-  --font-size: 11px; /* Giống .input:hover + .btn */
-}
-
-.cyber-link-wrapper:hover .btn .btn__glitch {
-  display: block; /* Giống .input:hover + .btn .btn__glitch */
-}
-
-.cyber-link-wrapper.small:hover .btn {
-  --font-size: 9px; /* Giữ font nhỏ hơn một chút */
-}
-/* KHI NHẤN (ACTIVE) VÀO LINK */
-.cyber-link-wrapper:active .btn {
-  --primary: var(--neon-primary); /* Đổi sang màu CHÍNH */
-  --shadow-primary: var(--neon-secondary);
-  animation: glitch 0.5s infinite; /* Glitch khi nhấn */
-}
-
-/* Phiên bản nhỏ hơn cho các link social */
-.cyber-link-wrapper.small {
-  height: 30px;
-  width: 65px;
-}
-
-.cyber-link-wrapper.small .btn {
-  line-height: 30px;
-  --font-size: 8px;
-  --border: 3px;
-  --clip: polygon(
-    11% 0,
-    95% 0,
-    100% 30%,
-    90% 90%,
-    95% 90%,
-    85% 90%,
-    85% 100%,
-    7% 100%,
-    0 70%
-  );
-}
-
-.cyber-link-wrapper.small:hover .btn {
-  --font-size: 9px;
-}
-
-.cyber-link-wrapper.small .number {
-  display: none; /* Ẩn số */
-}
-
-/* ----- 4. CSS cho các link xã hội cũ (nếu có) ----- */
-/* Bỏ đi style cũ của .social-links a */
-.social-links a {
-  text-shadow: none;
-  /* Bạn có thể xóa hết CSS cũ của .social-links a */
+  /* ===== THAY ĐỔI: Di chuyển theme switcher về lại vị trí cũ trên mobile ===== */
+  .theme-switcher-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: 1;
+    flex-direction: row; /* Xếp hàng ngang */
+    margin-top: 30px;
+    padding: 10px;
+    width: auto; /* Tự động co giãn */
+  }
+  .theme-switcher-container strong {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  .theme-buttons {
+    flex-direction: row; /* Xếp hàng ngang */
+  }
 }
