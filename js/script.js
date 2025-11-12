@@ -1,31 +1,59 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- PHẦN CODE ĐỔI THEME (Phiên bản đầy đủ) ---
-  const themeButtons = document.querySelectorAll(".theme-input");
-  const savedTheme = localStorage.getItem("cyberpunk-theme") || "blue"; // Mặc định là 'blue'
+  // --- PHẦN CODE ĐỔI THEME (ĐÃ CẬP NHẬT) ---
+  const themeButtons = document.querySelectorAll(".theme-btn");
+  // Đổi tên key trong localStorage cho rõ ràng
+  const savedTheme = localStorage.getItem("tech-cv-theme") || "blue";
 
   // 1. Áp dụng theme đã lưu ngay khi tải trang
   document.body.dataset.theme = savedTheme;
 
-  // 2. Tự động "check" vào nút radio tương ứng với theme đã lưu
-  const currentThemeInput = document.querySelector(
-    `.theme-input[data-theme="${savedTheme}"]`
-  );
-  if (currentThemeInput) {
-    currentThemeInput.checked = true;
-  }
-
-  // 3. Lắng nghe sự kiện "thay đổi" trên các nút radio
+  // 2. Lắng nghe sự kiện "click" trên các nút theme mới
   themeButtons.forEach((button) => {
-    button.addEventListener("change", () => {
-      // Chỉ thực hiện nếu nút này được "check"
-      if (button.checked) {
-        const theme = button.dataset.theme; // Lấy tên theme từ nút
-        document.body.dataset.theme = theme; // Áp dụng theme cho body
-        localStorage.setItem("cyberpunk-theme", theme); // Lưu lựa chọn
-      }
+    button.addEventListener("click", () => {
+      const theme = button.dataset.theme; // Lấy tên theme từ nút
+      document.body.dataset.theme = theme; // Áp dụng theme cho body
+      localStorage.setItem("tech-cv-theme", theme); // Lưu lựa chọn
     });
   });
   // --- HẾT PHẦN CODE ĐỔI THEME ---
+
+  // --- CODE MỚI: CHỨC NĂNG THU/GỌN (COLLAPSE) ---
+  const sectionHeaders = document.querySelectorAll(".section-header");
+
+  sectionHeaders.forEach((header) => {
+    const button = header.querySelector(".toggle-btn");
+    const contentId = button.getAttribute("aria-controls");
+    const content = document.getElementById(contentId);
+
+    if (content) {
+      // Dùng chung 1 hàm xử lý cho cả click vào Header và Button
+      const toggleContent = () => {
+        const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+        button.setAttribute("aria-expanded", !isExpanded);
+        content.classList.toggle("collapsed");
+
+        if (isExpanded) {
+          button.setAttribute("title", "Mở rộng");
+        } else {
+          button.setAttribute("title", "Thu gọn");
+        }
+      };
+
+      // Thêm sự kiện click
+      button.addEventListener("click", toggleContent);
+      header.addEventListener("click", (e) => {
+        // Chỉ kích hoạt nếu click vào H2 (không phải nút)
+        if (e.target.tagName === "H2") {
+          toggleContent();
+        }
+      });
+
+      /* ===== THAY ĐỔI: Đã xóa code tự động đóng 2 mục cuối. ===== */
+      /* ===== Tất cả các mục giờ sẽ mở theo mặc định của HTML. ===== */
+    }
+  });
+  // --- HẾT CODE MỚI THU/GỌN ---
 
   // --- Code cho animation scroll (vẫn giữ nguyên) ---
   const sections = document.querySelectorAll("section");
@@ -41,9 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (entry.isIntersecting) {
         entry.target.style.opacity = "1";
         entry.target.style.transform = "translateY(0)";
-      } else {
-        // Bạn có thể bỏ comment dòng dưới nếu muốn hiệu ứng xảy ra mỗi khi cuộn
-        // entry.target.style.opacity = '0';
       }
     });
   }, observerOptions);
